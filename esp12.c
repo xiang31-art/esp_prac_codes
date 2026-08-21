@@ -1,3 +1,5 @@
+//CSV出力
+
 #include <stdio.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/projdefs.h"
