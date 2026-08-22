@@ -26,7 +26,7 @@ void app_main(void) {
     };
     adc_oneshot_config_channel(adc1_handle, ADC_CHANNEL_6, &channel_conf);
 
-    printf("Raw, Voltage\n");
+    //printf("Raw, Voltage\n");
 
     while(1) {
         int raw_value = 0;
@@ -40,3 +40,4 @@ void app_main(void) {
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
 }
+//https://risusan.net/esp32-experiment-discussion/#toc69
