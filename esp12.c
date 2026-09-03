@@ -9,7 +9,6 @@
 #include "esp_adc/adc_oneshot.h"
 #include "hal/adc_types.h"
 
-static const char *TAG = "ESP12";
 
 void app_main(void) {
     //ADCユニット作成・初期化
@@ -40,4 +39,3 @@ void app_main(void) {
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
 }
-//https://risusan.net/esp32-experiment-discussion/#toc69
