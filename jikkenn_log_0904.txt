@@ -1,0 +1,368 @@
+実験中に発生した、ログの出力がいきなり止まった現象
+0.888 V  -0.400 mA  -0.355 mW
+0.884 V  -0.500 mA  -0.442 mW
+0.884 V  -0.300 mA  -0.265 mW
+0.884 V  -0.200 mA  -0.177 mW
+0.884 V  -0.600 mA  -0.530 mW
+0.888 V  -0.300 mA  -0.266 mW
+0.884 V  -0.300 mA  -0.265 mW
+0.000 V  0.000 mA  0.000 mW
+0.000 V  0.000 mA  0.000 mW
+0.884 V  -0.300 mA  -0.265 mW
+0.000 V  0.000 mA  0.000 mW
+0.000 V  0.000 mA  0.000 mW
+0.884 V  -0.200 mA  -0.177 mW
+0.888 V  -0.400 mA  -0.355 mW
+0.884 V  -0.200 mA  -0.177 mW
+0.884 V  -0.300 mA  -0.265 mW
+0.884 V  -0.500 mA  -0.442 mW
+0.884 V  -0.600 mA  -0.530 mW
+0.000 V  -1.100 mA  -0.000 mW
+0.000 V  -1.200 mA  -0.000 mW
+0.000 V  -1.400 mA  -0.000 mW
+0.000 V  -1.200 mA  -0.000 mW
+0.000 V  -1.200 mA  -0.000 mW
+0.000 V  -1.500 mA  -0.000 mW   //<-ここで停止
+
+xiand@xiand-Dell-15-DC15250:~/esp/esp_prac$ idf.py -p /dev/ttyUSB0 monitor
+Executing action: monitor
+Running idf_monitor in directory /home/xiand/esp/esp_prac
+Executing "/home/xiand/.espressif/python_env/idf5.2_py3.14_env/bin/python /home/xiand/esp/esp-idf/tools/idf_monitor.py -p /dev/ttyUSB0 -b 115200 --toolchain-prefix xtensa-esp32-elf- --target esp32 --revision 0 /home/xiand/esp/esp_prac/build/esp_prac.elf -m '/home/xiand/.espressif/python_env/idf5.2_py3.14_env/bin/python' '/home/xiand/esp/esp-idf/tools/idf.py' '-p' '/dev/ttyUSB0'"...
+--- esp-idf-monitor 1.9.0 on /dev/ttyUSB0 115200
+--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7172
+load:0x40078000,len:15620
+load:0x40080400,len:4
+--- 0x40080400: _init at ??:?
+ho 8 tail 4 room 4
+load:0x40080404,len:3904
+entry 0x40080640
+I (31) boot: ESP-IDF v5.2.5 2nd stage bootloader
+I (31) boot: compile time Aug 18 2026 17:44:14
+I (31) boot: Multicore bootloader
+I (35) boot: chip revision: v3.1
+I (39) boot.esp32: SPI Speed      : 40MHz
+I (44) boot.esp32: SPI Mode       : DIO
+I (48) boot.esp32: SPI Flash Size : 2MB
+I (53) boot: Enabling RNG early entropy source...
+I (58) boot: Partition Table:
+I (62) boot: ## Label            Usage          Type ST Offset   Length
+I (69) boot:  0 nvs              WiFi data        01 02 00009000 00006000
+I (77) boot:  1 phy_init         RF data          01 01 0000f000 00001000
+I (84) boot:  2 factory          factory app      00 00 00010000 00100000
+I (92) boot: End of partition table
+I (96) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=0b21ch ( 45596) map
+I (120) esp_image: segment 1: paddr=0001b244 vaddr=3ffb0000 size=02284h (  8836) load
+I (123) esp_image: segment 2: paddr=0001d4d0 vaddr=40080000 size=02b48h ( 11080) load
+I (130) esp_image: segment 3: paddr=00020020 vaddr=400d0020 size=17374h ( 95092) map
+I (167) esp_image: segment 4: paddr=0003739c vaddr=40082b48 size=0a0ach ( 41132) load
+I (189) boot: Loaded app from partition at offset 0x10000
+I (190) boot: Disabling RNG early entropy source...
+I (201) cpu_start: Multicore app
+I (210) cpu_start: Pro cpu start user code
+I (210) cpu_start: cpu freq: 160000000 Hz
+I (210) cpu_start: Application information:
+I (213) cpu_start: Project name:     esp_prac
+I (218) cpu_start: App version:      1
+I (223) cpu_start: Compile time:     Aug 28 2026 11:56:44
+I (229) cpu_start: ELF file SHA256:  3946b139a...
+I (234) cpu_start: ESP-IDF:          v5.2.5
+I (239) cpu_start: Min chip rev:     v0.0
+I (244) cpu_start: Max chip rev:     v3.99
+I (249) cpu_start: Chip rev:         v3.1
+I (254) heap_init: Initializing. RAM available for dynamic allocation:
+I (261) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM
+I (267) heap_init: At 3FFB2B80 len 0002D480 (181 KiB): DRAM
+I (273) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM
+I (279) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM
+I (286) heap_init: At 4008CBF4 len 0001340C (77 KiB): IRAM
+I (293) spi_flash: detected chip: generic
+I (296) spi_flash: flash io: dio
+W (300) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.
+I (314) main_task: Started on CPU0
+I (324) main_task: Calling app_main()
+I (324) gpio: GPIO[21]| InputEn: 1| OutputEn: 1| OpenDrain: 1| Pullup: 1| Pulldown: 0| Intr:0
+I (324) gpio: GPIO[22]| InputEn: 1| OutputEn: 1| OpenDrain: 1| Pullup: 1| Pulldown: 0| Intr:0
+I (334) gpio: GPIO[21]| InputEn: 1| OutputEn: 1| OpenDrain: 1| Pullup: 1| Pulldown: 0| Intr:0
+I (344) gpio: GPIO[22]| InputEn: 1| OutputEn: 1| OpenDrain: 1| Pullup: 1| Pulldown: 0| Intr:0
+
+xiand@xiand-Dell-15-DC15250:~/esp/esp_prac$ idf.py -p /dev/ttyUSB0 monitor
+Executing action: monitor
+Running idf_monitor in directory /home/xiand/esp/esp_prac
+Executing "/home/xiand/.espressif/python_env/idf5.2_py3.14_env/bin/python /home/xiand/esp/esp-idf/tools/idf_monitor.py -p /dev/ttyUSB0 -b 115200 --toolchain-prefix xtensa-esp32-elf- --target esp32 --revision 0 /home/xiand/esp/esp_prac/build/esp_prac.elf -m '/home/xiand/.espressif/python_env/idf5.2_py3.14_env/bin/python' '/home/xiand/esp/esp-idf/tools/idf.py' '-p' '/dev/ttyUSB0'"...
+--- esp-idf-monitor 1.9.0 on /dev/ttyUSB0 115200
+--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7172
+load:0x40078000,len:15620
+load:0x40080400,len:4
+--- 0x40080400: _init at ??:?
+ho 8 tail 4 room 4
+load:0x40080404,len:3904
+entry 0x40080640
+I (31) boot: ESP-IDF v5.2.5 2nd stage bootloader
+I (31) boot: compile time Aug 18 2026 17:44:14
+I (31) boot: Multicore bootloader
+I (35) boot: chip revision: v3.1
+I (39) boot.esp32: SPI Speed      : 40MHz
+I (44) boot.esp32: SPI Mode       : DIO
+I (48) boot.esp32: SPI Flash Size : 2MB
+I (53) boot: Enabling RNG early entropy source...
+I (58) boot: Partition Table:
+I (62) boot: ## Label            Usage          Type ST Offset   Length
+I (69) boot:  0 nvs              WiFi data        01 02 00009000 00006000
+I (77) boot:  1 phy_init         RF data          01 01 0000f000 00001000
+I (84) boot:  2 factory          factory app      00 00 00010000 00100000
+I (92) boot: End of partition table
+I (96) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=0b21ch ( 45596) map
+I (120) esp_image: segment 1: paddr=0001b244 vaddr=3ffb0000 size=02284h (  8836) load
+I (123) esp_image: segment 2: paddr=0001d4d0 vaddr=40080000 size=02b48h ( 11080) load
+I (130) esp_image: segment 3: paddr=00020020 vaddr=400d0020 size=17374h ( 95092) map
+I (167) esp_image: segment 4: paddr=0003739c vaddr=40082b48 size=0a0ach ( 41132) load
+I (189) boot: Loaded app from partition at offset 0x10000
+I (190) boot: Disabling RNG early entropy source...
+I (201) cpu_start: Multicore app
+I (210) cpu_start: Pro cpu start user code
+I (210) cpu_start: cpu freq: 160000000 Hz
+I (210) cpu_start: Application information:
+I (213) cpu_start: Project name:     esp_prac
+I (218) cpu_start: App version:      1
+I (223) cpu_start: Compile time:     Aug 28 2026 11:56:44
+I (229) cpu_start: ELF file SHA256:  3946b139a...
+I (234) cpu_start: ESP-IDF:          v5.2.5
+I (239) cpu_start: Min chip rev:     v0.0
+I (244) cpu_start: Max chip rev:     v3.99
+I (249) cpu_start: Chip rev:         v3.1
+I (254) heap_init: Initializing. RAM available for dynamic allocation:
+I (261) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM
+I (267) heap_init: At 3FFB2B80 len 0002D480 (181 KiB): DRAM
+I (273) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM
+I (279) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM
+I (286) heap_init: At 4008CBF4 len 0001340C (77 KiB): IRAM
+I (293) spi_flash: detected chip: generic
+I (296) spi_flash: flash io: dio
+W (300) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.
+I (314) main_task: Started on CPU0
+I (324) main_task: Calling app_main()
+I (324) gpio: GPIO[21]| InputEn: 1| OutputEn: 1| OpenDrain: 1| Pullup: 1| Pulldown: 0| Intr:0
+I (324) gpio: GPIO[22]| InputEn: 1| OutputEn: 1| OpenDrain: 1| Pullup: 1| Pulldown: 0| Intr:0
+I (334) gpio: GPIO[21]| InputEn: 1| OutputEn: 1| OpenDrain: 1| Pullup: 1| Pulldown: 0| Intr:0
+I (344) gpio: GPIO[22]| InputEn: 1| OutputEn: 1| OpenDrain: 1| Pullup: 1| Pulldown: 0| Intr:0
+
+xiand@xiand-Dell-15-DC15250:~/esp/esp_prac$ idf.py -p /dev/ttyUSB0 monitor
+Executing action: monitor
+Running idf_monitor in directory /home/xiand/esp/esp_prac
+Executing "/home/xiand/.espressif/python_env/idf5.2_py3.14_env/bin/python /home/xiand/esp/esp-idf/tools/idf_monitor.py -p /dev/ttyUSB0 -b 115200 --toolchain-prefix xtensa-esp32-elf- --target esp32 --revision 0 /home/xiand/esp/esp_prac/build/esp_prac.elf -m '/home/xiand/.espressif/python_env/idf5.2_py3.14_env/bin/python' '/home/xiand/esp/esp-idf/tools/idf.py' '-p' '/dev/ttyUSB0'"...
+--- esp-idf-monitor 1.9.0 on /dev/ttyUSB0 115200
+--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7172
+load:0x40078000,len:15620
+load:0x40080400,len:4
+--- 0x40080400: _init at ??:?
+ho 8 tail 4 room 4
+load:0x40080404,len:3904
+entry 0x40080640
+I (31) boot: ESP-IDF v5.2.5 2nd stage bootloader
+I (31) boot: compile time Aug 18 2026 17:44:14
+I (31) boot: Multicore bootloader
+I (35) boot: chip revision: v3.1
+I (39) boot.esp32: SPI Speed      : 40MHz
+I (44) boot.esp32: SPI Mode       : DIO
+I (48) boot.esp32: SPI Flash Size : 2MB
+I (53) boot: Enabling RNG early entropy source...
+I (58) boot: Partition Table:
+I (62) boot: ## Label            Usage          Type ST Offset   Length
+I (69) boot:  0 nvs              WiFi data        01 02 00009000 00006000
+I (77) boot:  1 phy_init         RF data          01 01 0000f000 00001000
+I (84) boot:  2 factory          factory app      00 00 00010000 00100000
+I (92) boot: End of partition table
+I (96) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=0b21ch ( 45596) map
+I (120) esp_image: segment 1: paddr=0001b244 vaddr=3ffb0000 size=02284h (  8836) load
+I (123) esp_image: segment 2: paddr=0001d4d0 vaddr=40080000 size=02b48h ( 11080) load
+I (130) esp_image: segment 3: paddr=00020020 vaddr=400d0020 size=17374h ( 95092) map
+I (167) esp_image: segment 4: paddr=0003739c vaddr=40082b48 size=0a0ach ( 41132) load
+I (189) boot: Loaded app from partition at offset 0x10000
+I (190) boot: Disabling RNG early entropy source...
+I (201) cpu_start: Multicore app
+I (210) cpu_start: Pro cpu start user code
+I (210) cpu_start: cpu freq: 160000000 Hz
+I (210) cpu_start: Application information:
+I (213) cpu_start: Project name:     esp_prac
+I (218) cpu_start: App version:      1
+I (223) cpu_start: Compile time:     Aug 28 2026 11:56:44
+I (229) cpu_start: ELF file SHA256:  3946b139a...
+I (234) cpu_start: ESP-IDF:          v5.2.5
+I (239) cpu_start: Min chip rev:     v0.0
+I (244) cpu_start: Max chip rev:     v3.99
+I (249) cpu_start: Chip rev:         v3.1
+I (254) heap_init: Initializing. RAM available for dynamic allocation:
+I (261) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM
+I (267) heap_init: At 3FFB2B80 len 0002D480 (181 KiB): DRAM
+I (273) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM
+I (279) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM
+I (286) heap_init: At 4008CBF4 len 0001340C (77 KiB): IRAM
+I (293) spi_flash: detected chip: generic
+I (296) spi_flash: flash io: dio
+W (300) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.
+I (314) main_task: Started on CPU0
+I (324) main_task: Calling app_main()
+I (324) gpio: GPIO[21]| InputEn: 1| OutputEn: 1| OpenDrain: 1| Pullup: 1| Pulldown: 0| Intr:0
+I (324) gpio: GPIO[22]| InputEn: 1| OutputEn: 1| OpenDrain: 1| Pullup: 1| Pulldown: 0| Intr:0
+E (20294) i2c.master: I2C hardware NACK detected
+E (20294) i2c.master: I2C transaction unexpected nack detected
+E (20294) i2c.master: s_i2c_synchronous_transaction(881): I2C transaction failed
+I (20304) gpio: GPIO[21]| InputEn: 1| OutputEn: 1| OpenDrain: 1| Pullup: 1| Pulldown: 0| Intr:0
+I (20314) gpio: GPIO[22]| InputEn: 1| OutputEn: 1| OpenDrain: 1| Pullup: 1| Pulldown: 0| Intr:0
+E (20324) i2c.master: i2c_master_transmit(1100): I2C transaction failed
+E (20334) ESP14: INA219 configure failed: ESP_ERR_INVALID_STATE
+I (20344) main_task: Returned from app_main()
+
+
+何度か再起動したが、反応なし。
+Sda線を取り外し、esp32をブレッドボードから取り外したところ、解決
+
+
+
+
+25Wソーラーパネルと摺動抵抗を取り付けたところ
+0.888 V  -0.400 mA  -0.355 mW
+0.892 V  -0.300 mA  -0.268 mW
+17.724 V  0.100 mA  1.772 mW
+17.704 V  0.000 mA  0.000 mW
+17.692 V  -0.200 mA  -3.538 mW
+17.720 V  -0.100 mA  -1.772 mW
+17.780 V  0.100 mA  1.778 mW
+17.812 V  0.000 mA  0.000 mW
+17.804 V  0.000 mA  0.000 mW
+17.792 V  0.000 mA  0.000 mW
+17.780 V  0.000 mA  0.000 mW
+17.780 V  0.100 mA  1.778 mW
+17.780 V  0.000 mA  0.000 mW
+17.804 V  0.000 mA  0.000 mW
+17.792 V  -0.300 mA  -5.338 mW
+17.792 V  0.000 mA  0.000 mW
+17.828 V  -0.100 mA  -1.783 mW
+17.844 V  -0.300 mA  -5.353 mW
+17.856 V  0.000 mA  0.000 mW
+17.872 V  0.000 mA  0.000 mW
+17.880 V  0.100 mA  1.788 mW
+17.872 V  -0.200 mA  -3.574 mW
+17.864 V  -0.300 mA  -5.359 mW
+17.852 V  0.000 mA  0.000 mW
+17.860 V  -0.300 mA  -5.358 mW
+17.868 V  -0.300 mA  -5.360 mW
+17.868 V  0.000 mA  0.000 mW
+17.872 V  0.000 mA  0.000 mW
+17.868 V  -0.100 mA  -1.787 mW
+17.856 V  -0.100 mA  -1.786 mW
+17.860 V  -0.100 mA  -1.786 mW
+17.880 V  0.000 mA  0.000 mW
+17.876 V  0.300 mA  5.363 mW
+17.876 V  0.200 mA  3.575 mW
+17.856 V  -0.200 mA  -3.571 mW
+17.852 V  -0.300 mA  -5.356 mW
+17.856 V  0.100 mA  1.786 mW
+17.856 V  0.000 mA  0.000 mW
+17.852 V  0.100 mA  1.785 mW
+17.844 V  -0.100 mA  -1.784 mW
+17.832 V  -0.100 mA  -1.783 mW
+17.816 V  0.000 mA  0.000 mW
+17.816 V  -0.100 mA  -1.782 mW
+17.780 V  0.000 mA  0.000 mW
+17.744 V  0.200 mA  3.549 mW
+0.888 V  -0.600 mA  -0.533 mW
+0.884 V  -0.500 mA  -0.442 mW
+0.888 V  -0.700 mA  -0.622 mW
+17.744 V  -0.100 mA  -1.774 mW
+0.888 V  -0.300 mA  -0.266 mW
+0.884 V  -0.300 mA  -0.265 mW
+17.828 V  -0.200 mA  -3.566 mW
+17.876 V  0.100 mA  1.788 mW
+17.876 V  -0.100 mA  -1.788 mW
+17.832 V  0.100 mA  1.783 mW
+17.816 V  0.000 mA  0.000 mW
+17.820 V  -0.200 mA  -3.564 mW
+17.816 V  -0.100 mA  -1.782 mW
+17.380 V  0.000 mA  0.000 mW
+17.648 V  0.000 mA  0.000 mW
+17.724 V  0.200 mA  3.545 mW
+17.752 V  -0.100 mA  -1.775 mW
+17.748 V  -0.200 mA  -3.550 mW
+17.736 V  -0.100 mA  -1.774 mW
+17.740 V  0.200 mA  3.548 mW
+17.716 V  -0.200 mA  -3.543 mW
+17.648 V  0.100 mA  1.765 mW
+17.600 V  -0.300 mA  -5.280 mW
+17.568 V  0.100 mA  1.757 mW
+17.520 V  0.100 mA  1.752 mW
+17.468 V  -0.100 mA  -1.747 mW
+17.404 V  -0.200 mA  -3.481 mW
+17.348 V  0.100 mA  1.735 mW
+17.324 V  0.300 mA  5.197 mW
+0.888 V  -0.300 mA  -0.266 mW
+0.884 V  -0.400 mA  -0.354 mW
+0.884 V  -0.700 mA  -0.619 mW
+0.888 V  -0.300 mA  -0.266 mW
+0.884 V  -0.500 mA  -0.442 mW
+0.884 V  -0.500 mA  -0.442 mW
+0.888 V  -0.500 mA  -0.444 mW
+0.892 V  -0.400 mA  -0.357 mW
+0.884 V  -0.500 mA  -0.442 mW
+0.884 V  -0.300 mA  -0.265 mW
+0.888 V  -0.300 mA  -0.266 mW
+0.884 V  -0.400 mA  -0.354 mW
+0.888 V  -0.500 mA  -0.444 mW
+0.888 V  -0.500 mA  -0.444 mW
+0.884 V  -0.500 mA  -0.442 mW
+0.884 V  -0.600 mA  -0.530 mW
+0.884 V  -0.500 mA  -0.442 mW
+0.888 V  -0.300 mA  -0.266 mW
+0.888 V  -0.500 mA  -0.444 mW
+0.888 V  -0.500 mA  -0.444 mW
+0.884 V  -0.500 mA  -0.442 mW
+0.888 V  -0.400 mA  -0.355 mW
+0.888 V  -0.500 mA  -0.444 mW
+0.888 V  -0.200 mA  -0.178 mW
+0.888 V  -0.300 mA  -0.266 mW
+0.884 V  -0.400 mA  -0.354 mW
+0.888 V  -0.600 mA  -0.533 mW
+0.884 V  -0.400 mA  -0.354 mW
+0.884 V  -0.500 mA  -0.442 mW
+0.880 V  -0.200 mA  -0.176 mW
+0.888 V  -0.200 mA  -0.178 mW
+0.884 V  -0.400 mA  -0.354 mW
+0.888 V  -0.400 mA  -0.355 mW
+0.888 V  -0.300 mA  -0.266 mW
+0.884 V  -0.400 mA  -0.354 mW
+0.884 V  -0.500 mA  -0.442 mW
+0.884 V  -0.500 mA  -0.442 mW
+0.884 V  -0.500 mA  -0.442 mW
+0.888 V  -0.300 mA  -0.266 mW
+0.888 V  -0.500 mA  -0.444 mW
+0.884 V  -0.300 mA  -0.265 mW
+0.884 V  -0.500 mA  -0.442 mW
+0.884 V  -0.300 mA  -0.265 mW
+0.884 V  -0.300 mA  -0.265 mW
+0.888 V  -0.400 mA  -0.355 mW
+
+
+気づき
+・電流は0.1mAが最大のようなので電流はmA表記なら小数点以下1桁で良さそう
+・

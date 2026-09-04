@@ -59,9 +59,7 @@ void app_main(void) {
     }
     ESP_LOGI(TAG, "INA219 device added successfully!");
 
-/*
- * 0x399F ->
- */
+//0x399Fを書き込み
     uint8_t config_data[3] = {0x00, 0x39, 0x9F};
     const uint8_t write = 0x02;
     //const uint8_t write_init = 0x00;
