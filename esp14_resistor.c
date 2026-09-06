@@ -61,7 +61,8 @@ void app_main(void) {
         return;
     }
 
-    printf("Voltage[V],Current[mA],Power[mW]\n");
+    //要注意
+    printf("Voltage[V],Current[mA],Power[W],Resistance[Ω]\n");
     while(1) {
         uint8_t shuntV_data[2];
         uint8_t busV_data[2];
@@ -94,20 +95,22 @@ void app_main(void) {
 
         //電力の計算
         float power_mW = voltage * current_mA;
+        float power_W = power_mW / 1000;    //mWからWへの変換
 
         //抵抗値の計算
         if (current_mA != 0) {
             float resistance = (voltage / current_mA) * 1000;
-            printf("%.3f V  %.3f mA  %.3f mW  %.3f　Ω\n", voltage, current_mA, power_mW, resistance);
+            //printf("%.3f V  %.3f mA  %.3f mW  %.3f　Ω\n", voltage, current_mA, power_mW, resistance);
+            printf("%.3f,%.1f,%.3f,%.3f\n", voltage, current_mA, power_W, resistance);
             vTaskDelay(pdMS_TO_TICKS(1000));
             continue;
         }
 
 
-        printf("%.3f V  %.3f mA  %.3f mW  -　Ω\n", voltage, current_mA, power_mW);
+        //printf("%.3f V  %.3f mA  %.3f mW  -　Ω\n", voltage, current_mA, power_mW);
 
         //csv用
-        //printf("%.3f,%.1f,%.3f\n", voltage, current_mA, power_mW / 1000);
+        printf("%.3f,%.1f,%.3f,-\n", voltage, current_mA, power_W);
 
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
