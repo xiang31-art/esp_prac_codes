@@ -104,7 +104,7 @@ Geminiにプログラム作成の課題を出してもらう
 　　構造体adc_oneshot_unit_handle_t(宣言のみ), adc_oneshot_unit_init_cfg_t(1つ)を用意。
 　　adc_oneshot_config_channel()でADC1のユニットを作成・初期化。
 　2:チャンネルの設定
-　　構造体adc_oneshot_chan_cfg_t(2つ)を用意。adc_oneshot_config_channel()でADC_CHANNEL_6(GPIO 34)を設定。
+　　構造体adc_oneshot_chan_cfg_t(2つ)を用意 adc_oneshot_config_channel()でADC_CHANNEL_6(GPIO 34)を設定。
 　   アッテネーター(減衰器)を用意しないと、入力できる電圧が小さくなってしまう
 　3:値の読み取り・変換
 　　adc_oneshot_read()で電圧を読み取る。
@@ -118,7 +118,7 @@ Geminiにプログラム作成の課題を出してもらう
 　WindowsPCでData Streamerを使用してグラフをリアルタイム作成
 　データが捨てられる->データの記録＆データ許容量を増やす
 　
-　気づいたこと:測定した電圧は正しいのか？(ズレを感じる:電池を話してもすぐに電圧が下がらない)
+　気づいたこと:測定した電圧は正しいのか？(ズレを感じる:電池を離してもすぐに電圧が下がらない)
 
 8日目(8/24)
 ・INA219モジュールでの電圧測定
@@ -197,6 +197,12 @@ transmit_receive()はレジスタ番号を送信して、データを受けと�
 ・配線問題の解決
 ・購入
 1.配線台
+
+16日目(9/6)
+・室内で測定
+
+17日目(9/7)
+・屋外での測定
 
 ◯初期プロンプト
 あなたはC言語とesp32に詳しい組み込み開発エンジニアです。私がesp32のプログラミングを理解するのを手伝ってください。
