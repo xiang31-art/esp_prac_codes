@@ -1,0 +1,378 @@
+3kΩ　炭素皮膜抵抗測定
+3回ともesp14_resistor.c
+3回目は間隔を狭くした(1000ms -> 333ms)
+
+◯測定方法
+いつものように配線。
+抵抗のGND側は、接触抵抗を減らすため、リード線を2本使用
+この2本と抵抗の部分は指で押さえた
+(報告書に使用しない)
+
+xiand@xiand-Dell-15-DC15250:~/esp/esp_prac$ idf.py -p /dev/ttyUSB0 monitor
+Executing action: monitor
+Running idf_monitor in directory /home/xiand/esp/esp_prac
+Executing "/home/xiand/.espressif/python_env/idf5.2_py3.14_env/bin/python /home/xiand/esp/esp-idf/tools/idf_monitor.py -p /dev/ttyUSB0 -b 115200 --toolchain-prefix xtensa-esp32-elf- --target esp32 --revision 0 /home/xiand/esp/esp_prac/build/esp_prac.elf -m '/home/xiand/.espressif/python_env/idf5.2_py3.14_env/bin/python' '/home/xiand/esp/esp-idf/tools/idf.py' '-p' '/dev/ttyUSB0'"...
+--- esp-idf-monitor 1.9.0 on /dev/ttyUSB0 115200
+--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7172
+load:0x40078000,len:15620
+load:0x40080400,len:4
+--- 0x40080400: _init at ??:?
+ho 8 tail 4 room 4
+load:0x40080404,len:3904
+entry 0x40080640
+I (31) boot: ESP-IDF v5.2.5 2nd stage bootloader
+I (31) boot: compile time Aug 18 2026 17:44:14
+I (31) boot: Multicore bootloader
+I (35) boot: chip revision: v3.1
+I (39) boot.esp32: SPI Speed      : 40MHz
+I (44) boot.esp32: SPI Mode       : DIO
+I (48) boot.esp32: SPI Flash Size : 2MB
+I (53) boot: Enabling RNG early entropy source...
+I (58) boot: Partition Table:
+I (62) boot: ## Label            Usage          Type ST Offset   Length
+I (69) boot:  0 nvs              WiFi data        01 02 00009000 00006000
+I (77) boot:  1 phy_init         RF data          01 01 0000f000 00001000
+I (84) boot:  2 factory          factory app      00 00 00010000 00100000
+I (92) boot: End of partition table
+I (96) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=0b264h ( 45668) map
+I (120) esp_image: segment 1: paddr=0001b28c vaddr=3ffb0000 size=02284h (  8836) load
+I (123) esp_image: segment 2: paddr=0001d518 vaddr=40080000 size=02b00h ( 11008) load
+I (130) esp_image: segment 3: paddr=00020020 vaddr=400d0020 size=174a8h ( 95400) map
+I (167) esp_image: segment 4: paddr=000374d0 vaddr=40082b00 size=0a0f4h ( 41204) load
+I (190) boot: Loaded app from partition at offset 0x10000
+I (190) boot: Disabling RNG early entropy source...
+I (201) cpu_start: Multicore app
+I (210) cpu_start: Pro cpu start user code
+I (210) cpu_start: cpu freq: 160000000 Hz
+I (210) cpu_start: Application information:
+I (213) cpu_start: Project name:     esp_prac
+I (218) cpu_start: App version:      1
+I (223) cpu_start: Compile time:     Aug 28 2026 11:56:44
+I (229) cpu_start: ELF file SHA256:  4efe3092c...
+I (234) cpu_start: ESP-IDF:          v5.2.5
+I (239) cpu_start: Min chip rev:     v0.0
+I (244) cpu_start: Max chip rev:     v3.99
+I (249) cpu_start: Chip rev:         v3.1
+I (254) heap_init: Initializing. RAM available for dynamic allocation:
+I (261) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM
+I (267) heap_init: At 3FFB2B80 len 0002D480 (181 KiB): DRAM
+I (273) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM
+I (279) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM
+I (286) heap_init: At 4008CBF4 len 0001340C (77 KiB): IRAM
+I (293) spi_flash: detected chip: generic
+I (297) spi_flash: flash io: dio
+W (301) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.
+I (314) main_task: Started on CPU0
+I (324) main_task: Calling app_main()
+I (324) gpio: GPIO[21]| InputEn: 1| OutputEn: 1| OpenDrain: 1| Pullup: 1| Pulldown: 0| Intr:0
+I (324) gpio: GPIO[22]| InputEn: 1| OutputEn: 1| OpenDrain: 1| Pullup: 1| Pulldown: 0| Intr:0
+Voltage[V],Current[mA],Power[W],Resistance[Ω]
+0.028,-0.4,-0.000,-70.000
+0.024,-0.3,-0.000,-80.000
+0.028,-0.3,-0.000,-93.333
+0.028,-0.5,-0.000,-56.000
+0.032,-0.2,-0.000,-160.000
+0.028,-0.2,-0.000,-140.000
+0.028,-0.1,-0.000,-280.000
+5.032,1.4,0.007,3594.286
+5.140,1.5,0.008,3426.667
+5.144,1.5,0.008,3429.334
+5.144,1.6,0.008,3215.000
+5.144,1.4,0.007,3674.286
+0.028,-0.5,-0.000,-56.000
+5.144,1.5,0.008,3429.334
+5.144,1.5,0.008,3429.334
+5.144,1.7,0.009,3025.882
+5.148,1.6,0.008,3217.500
+5.144,1.7,0.009,3025.882
+5.144,1.5,0.008,3429.334
+5.148,1.4,0.007,3677.143
+5.144,1.6,0.008,3215.000
+5.148,1.6,0.008,3217.500
+5.144,1.5,0.008,3429.334
+5.144,1.5,0.008,3429.334
+5.144,1.6,0.008,3215.000
+5.144,1.3,0.007,3956.923
+5.144,1.5,0.008,3429.334
+5.144,1.6,0.008,3215.000
+5.144,1.4,0.007,3674.286
+5.144,1.5,0.008,3429.334
+5.144,1.7,0.009,3025.882
+5.144,1.8,0.009,2857.778
+5.144,1.6,0.008,3215.000
+5.144,1.4,0.007,3674.286
+5.144,1.3,0.007,3956.923
+5.144,1.7,0.009,3025.882
+5.148,1.3,0.007,3960.000
+5.148,1.6,0.008,3217.500
+0.024,-0.5,-0.000,-48.000
+0.892,-0.5,-0.000,-1784.000
+0.028,-0.4,-0.000,-70.000
+0.892,-0.5,-0.000,-1784.000
+0.888,-0.6,-0.001,-1480.000
+0.896,-0.6,-0.001,-1493.333
+0.028,-0.2,-0.000,-140.000
+0.024,-0.5,-0.000,-48.000
+0.024,-0.4,-0.000,-60.000
+0.024,-0.2,-0.000,-120.000
+0.028,-0.5,-0.000,-56.000
+0.028,-0.3,-0.000,-93.333
+5.148,1.6,0.008,3217.500
+5.144,1.1,0.006,4676.363
+5.152,1.7,0.009,3030.588
+5.144,1.6,0.008,3215.000
+5.148,1.5,0.008,3432.000
+5.144,1.3,0.007,3956.923
+5.144,1.6,0.008,3215.000
+5.144,1.4,0.007,3674.286
+5.148,1.5,0.008,3432.000
+5.148,1.5,0.008,3432.000
+5.144,1.3,0.007,3956.923
+5.148,1.1,0.006,4680.000
+5.144,1.5,0.008,3429.334
+5.148,1.5,0.008,3432.000
+5.144,1.5,0.008,3429.334
+5.148,1.6,0.008,3217.500
+5.148,1.3,0.007,3960.000
+5.144,1.6,0.008,3215.000
+5.148,1.6,0.008,3217.500
+5.144,1.5,0.008,3429.334
+5.148,1.8,0.009,2860.000
+5.144,1.6,0.008,3215.000
+5.148,1.6,0.008,3217.500
+5.144,1.7,0.009,3025.882
+5.144,1.5,0.008,3429.334
+5.148,1.6,0.008,3217.500
+5.148,1.5,0.008,3432.000
+5.144,1.4,0.007,3674.286
+5.148,1.5,0.008,3432.000
+5.144,1.5,0.008,3429.334
+5.144,1.6,0.008,3215.000
+5.144,1.5,0.008,3429.334
+5.144,1.5,0.008,3429.334
+5.144,1.7,0.009,3025.882
+5.144,1.4,0.007,3674.286
+5.144,1.6,0.008,3215.000
+5.148,1.3,0.007,3960.000
+5.144,1.5,0.008,3429.334
+5.152,1.6,0.008,3220.000
+5.144,1.8,0.009,2857.778
+5.148,1.4,0.007,3677.143
+5.144,1.7,0.009,3025.882
+5.144,1.6,0.008,3215.000
+5.144,1.4,0.007,3674.286
+5.144,1.6,0.008,3215.000
+5.144,1.4,0.007,3674.286
+5.144,1.4,0.007,3674.286
+5.144,1.6,0.008,3215.000
+5.144,1.6,0.008,3215.000
+5.148,1.7,0.009,3028.235
+5.144,1.5,0.008,3429.334
+5.144,1.4,0.007,3674.286
+5.148,1.5,0.008,3432.000
+5.148,1.9,0.010,2709.474
+5.144,1.6,0.008,3215.000
+0.024,-0.1,-0.000,-240.000
+0.108,-0.3,-0.000,-360.000
+0.892,-0.3,-0.000,-2973.333
+0.884,-0.5,-0.000,-1768.000
+0.888,-0.5,-0.000,-1776.000
+0.888,-0.6,-0.001,-1480.000
+0.884,-0.2,-0.000,-4420.000
+0.884,-0.3,-0.000,-2946.667
+0.888,-0.3,-0.000,-2960.000
+0.888,-0.5,-0.000,-1776.000
+0.888,-0.5,-0.000,-1776.000
+0.896,-0.5,-0.000,-1792.000
+0.892,-0.5,-0.000,-1784.000
+0.892,-0.1,-0.000,-8920.001
+0.892,-0.4,-0.000,-2230.000
+0.892,-0.1,-0.000,-8920.001
+0.888,-0.4,-0.000,-2220.000
+0.884,-0.6,-0.001,-1473.333
+0.888,-0.5,-0.000,-1776.000
+0.884,-0.5,-0.000,-1768.000
+0.888,-0.2,-0.000,-4440.000
+0.888,-0.4,-0.000,-2220.000
+0.892,-0.4,-0.000,-2230.000
+0.888,-0.3,-0.000,-2960.000
+0.888,-0.4,-0.000,-2220.000
+0.888,-0.5,-0.000,-1776.000
+1.136,-0.1,-0.000,-11360.001
+1.192,-0.3,-0.000,-3973.333
+0.892,-0.7,-0.001,-1274.286
+0.892,-0.5,-0.000,-1784.000
+0.892,-0.4,-0.000,-2230.000
+0.888,-0.4,-0.000,-2220.000
+0.888,-0.8,-0.001,-1110.000
+0.888,-0.2,-0.000,-4440.000
+0.884,0.0,0.000,-
+0.888,-0.6,-0.001,-1480.000
+0.888,-0.6,-0.001,-1480.000
+0.888,-0.3,-0.000,-2960.000
+0.880,-0.4,-0.000,-2200.000
+0.884,-0.3,-0.000,-2946.667
+0.888,-0.3,-0.000,-2960.000
+0.884,-0.5,-0.000,-1768.000
+0.888,-0.4,-0.000,-2220.000
+0.884,-0.5,-0.000,-1768.000
+0.896,-0.2,-0.000,-4480.000
+0.888,-0.3,-0.000,-2960.000
+0.888,-0.5,-0.000,-1776.000
+0.068,-0.1,-0.000,-680.000
+0.300,-0.4,-0.000,-750.000
+0.028,0.0,0.000,-
+0.028,-0.5,-0.000,-56.000
+0.028,-0.4,-0.000,-70.000
+0.028,-0.2,-0.000,-140.000
+0.028,-0.3,-0.000,-93.333
+0.028,-0.2,-0.000,-140.000
+0.028,-0.2,-0.000,-140.000
+5.144,1.3,0.007,3956.923
+5.144,1.6,0.008,3215.000
+5.144,1.7,0.009,3025.882
+5.148,1.6,0.008,3217.500
+5.144,1.4,0.007,3674.286
+5.144,1.6,0.008,3215.000
+5.148,1.4,0.007,3677.143
+5.144,1.7,0.009,3025.882
+5.148,1.3,0.007,3960.000
+5.144,1.6,0.008,3215.000
+5.144,1.6,0.008,3215.000
+5.148,1.5,0.008,3432.000
+5.144,1.5,0.008,3429.334
+5.144,1.5,0.008,3429.334
+5.148,1.4,0.007,3677.143
+5.144,1.5,0.008,3429.334
+5.148,1.6,0.008,3217.500
+5.148,1.4,0.007,3677.143
+5.148,1.5,0.008,3432.000
+5.144,1.5,0.008,3429.334
+5.148,1.6,0.008,3217.500
+5.148,1.5,0.008,3432.000
+5.148,1.5,0.008,3432.000
+5.144,1.4,0.007,3674.286
+5.144,1.5,0.008,3429.334
+5.148,1.5,0.008,3432.000
+5.148,1.4,0.007,3677.143
+5.144,1.6,0.008,3215.000
+5.148,1.6,0.008,3217.500
+5.144,1.7,0.009,3025.882
+5.144,1.5,0.008,3429.334
+5.148,1.8,0.009,2860.000
+5.144,1.6,0.008,3215.000
+5.144,1.5,0.008,3429.334
+5.144,1.4,0.007,3674.286
+5.144,1.5,0.008,3429.334
+5.148,1.6,0.008,3217.500
+5.144,1.6,0.008,3215.000
+
+
+
+・2回目
+◯測定方法
+12:16分の写真を参照
+
+xiand@xiand-Dell-15-DC15250:~/esp/esp_prac$ idf.py -p /dev/ttyUSB0 monitor
+Executing action: monitor
+Running idf_monitor in directory /home/xiand/esp/esp_prac
+Executing "/home/xiand/.espressif/python_env/idf5.2_py3.14_env/bin/python /home/xiand/esp/esp-idf/tools/idf_monitor.py -p /dev/ttyUSB0 -b 115200 --toolchain-prefix xtensa-esp32-elf- --target esp32 --revision 0 /home/xiand/esp/esp_prac/build/esp_prac.elf -m '/home/xiand/.espressif/python_env/idf5.2_py3.14_env/bin/python' '/home/xiand/esp/esp-idf/tools/idf.py' '-p' '/dev/ttyUSB0'"...
+--- esp-idf-monitor 1.9.0 on /dev/ttyUSB0 115200
+--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7172
+load:0x40078000,len:15620
+load:0x40080400,len:4
+--- 0x40080400: _init at ??:?
+ho 8 tail 4 room 4
+load:0x40080404,len:3904
+entry 0x40080640
+I (31) boot: ESP-IDF v5.2.5 2nd stage bootloader
+I (31) boot: compile time Aug 18 2026 17:44:14
+I (31) boot: Multicore bootloader
+I (35) boot: chip revision: v3.1
+I (39) boot.esp32: SPI Speed      : 40MHz
+I (44) boot.esp32: SPI Mode       : DIO
+I (48) boot.esp32: SPI Flash Size : 2MB
+I (53) boot: Enabling RNG early entropy source...
+I (58) boot: Partition Table:
+I (62) boot: ## Label            Usage          Type ST Offset   Length
+I (69) boot:  0 nvs              WiFi data        01 02 00009000 00006000
+I (77) boot:  1 phy_init         RF data          01 01 0000f000 00001000
+I (84) boot:  2 factory          factory app      00 00 00010000 00100000
+I (92) boot: End of partition table
+I (96) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=0b264h ( 45668) map
+I (120) esp_image: segment 1: paddr=0001b28c vaddr=3ffb0000 size=02284h (  8836) load
+I (123) esp_image: segment 2: paddr=0001d518 vaddr=40080000 size=02b00h ( 11008) load
+I (130) esp_image: segment 3: paddr=00020020 vaddr=400d0020 size=174a8h ( 95400) map
+I (167) esp_image: segment 4: paddr=000374d0 vaddr=40082b00 size=0a0f4h ( 41204) load
+I (190) boot: Loaded app from partition at offset 0x10000
+I (190) boot: Disabling RNG early entropy source...
+I (201) cpu_start: Multicore app
+I (210) cpu_start: Pro cpu start user code
+I (210) cpu_start: cpu freq: 160000000 Hz
+I (210) cpu_start: Application information:
+I (213) cpu_start: Project name:     esp_prac
+I (218) cpu_start: App version:      1
+I (223) cpu_start: Compile time:     Aug 28 2026 11:56:44
+I (229) cpu_start: ELF file SHA256:  4efe3092c...
+I (234) cpu_start: ESP-IDF:          v5.2.5
+I (239) cpu_start: Min chip rev:     v0.0
+I (244) cpu_start: Max chip rev:     v3.99
+I (249) cpu_start: Chip rev:         v3.1
+I (254) heap_init: Initializing. RAM available for dynamic allocation:
+I (261) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM
+I (267) heap_init: At 3FFB2B80 len 0002D480 (181 KiB): DRAM
+I (273) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM
+I (279) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM
+I (286) heap_init: At 4008CBF4 len 0001340C (77 KiB): IRAM
+I (293) spi_flash: detected chip: generic
+I (297) spi_flash: flash io: dio
+W (301) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.
+I (314) main_task: Started on CPU0
+I (324) main_task: Calling app_main()
+I (324) gpio: GPIO[21]| InputEn: 1| OutputEn: 1| OpenDrain: 1| Pullup: 1| Pulldown: 0| Intr:0
+I (324) gpio: GPIO[22]| InputEn: 1| OutputEn: 1| OpenDrain: 1| Pullup: 1| Pulldown: 0| Intr:0
+Voltage[V],Current[mA],Power[W],Resistance[Ω]
+5.144,1.5,0.008,3429.334
+5.140,1.3,0.007,3953.846
+5.144,1.5,0.008,3429.334
+5.144,1.6,0.008,3215.000
+5.144,1.5,0.008,3429.334
+5.144,1.7,0.009,3025.882
+5.140,1.6,0.008,3212.500
+5.140,1.6,0.008,3212.500
+5.144,1.6,0.008,3215.000
+5.144,1.6,0.008,3215.000
+5.144,1.5,0.008,3429.334
+5.140,1.7,0.009,3023.530
+5.144,1.4,0.007,3674.286
+5.144,1.5,0.008,3429.334
+5.144,1.4,0.007,3674.286
+5.144,1.3,0.007,3956.923
+5.148,1.5,0.008,3432.000
+5.144,1.3,0.007,3956.923
+
+
+
+このファイルでの5V(Vcc)
+5.140 -> 5回
+5.144 -> 92回
+5.148 -> 41回
+5.152 -> 2回
+
+今日はVcc = 5.144 とする
+また、抵抗の値は測れなかったので、とりあえず3000Ωとする
+(後で電気の実験のときに持って行って測定させていただく)
