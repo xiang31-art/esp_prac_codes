@@ -1,4 +1,4 @@
-//リード線・はんだ線抵抗測定用
+//サーミスタのみ動作させる。
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -13,8 +13,27 @@
 #include "driver/i2c_master.h"
 #include "hal/i2c_types.h"
 #include "soc/clk_tree_defs.h"
+#include <math.h>
 
-const char *TAG = "ESP14_RES";
+const char *TAG = "ESP16";
+const float ABSOLUTE_ZERO = 273.15;
+const float VCC = 5.144;
+
+//各種値保存用
+typedef struct {
+    int temp_l; //測定温度範囲の上端
+    int temp_h; //測定温度範囲の下端
+    float r_h; //上端温度のときの抵抗値
+    float r_m; //中間の温度の抵抗値
+    float r_l; //上端温度のときの抵抗値
+    float r_connection; //接続する抵抗の抵抗値
+    float b_const; //B定数
+} values;
+
+
+float derive_resistance_from_voltage(float v_x, float v_cc, float r_connection);
+float derive_temp_from_resistance(int temp_l, float b_const, float r_l, float r_th);
+
 
 void app_main(void) {
     //i2cバス初期設定
@@ -37,7 +56,7 @@ void app_main(void) {
 
     i2c_device_config_t dev_conf = {
         .dev_addr_length = I2C_ADDR_BIT_LEN_7,//データのbit数
-        .device_address = 0X40, //INA219のデータアドレス
+        .device_address = 0X41, //INA219のデータアドレス
         .scl_speed_hz = 100000  //通信速度100kHz
     };
 
@@ -61,8 +80,20 @@ void app_main(void) {
         return;
     }
 
-    //要注意
-    printf("Voltage[V],Current[mA],Power[W],Resistance[Ω]\n");
+    //サーミスタの情報
+    values val = {
+        .temp_l = 20,
+        .temp_h = 80,
+        .r_l = 12110, //抵抗値はデータシートより
+        .r_m = 4147,  //単位はΩ
+        .r_h = 1668,
+        .r_connection = 3000,
+        .b_const = 3420.5
+    };
+
+
+    ESP_LOGI(TAG, "a");
+    printf("Voltage,Resistance,Temp\n");
     while(1) {
         uint8_t shuntV_data[2];
         uint8_t busV_data[2];
@@ -85,32 +116,13 @@ void app_main(void) {
         //3.mVからVへの変換
         float voltage = busV_raw * 0.004f;
 
-        /*データ変換 (電流)*/
-        //1.電圧と同様、ビットシフト
-        int16_t shuntV_raw_conbine = (int16_t)((shuntV_data[0] << 8) | shuntV_data[1]);
-        //2.シャント電圧のバイナリを数値に変換
-        float shunt_voltage_mV = shuntV_raw_conbine * 0.01f;    //INA219の1bitは0.01mVらしい
-        //3.shuntV_raw_conbineはシャント抵抗の電圧降下のため、シャント抵抗の抵抗値とともに、オームの法則で電流を導出
-        float current_mA = shunt_voltage_mV / 0.1f;  //10を掛けても等しい
 
-        //電力の計算
-        float power_mW = voltage * current_mA;
-        float power_W = power_mW / 1000;    //mWからWへの変換
+        float resistance = derive_resistance_from_voltage(voltage, VCC, val.r_connection);
+        float temp = derive_temp_from_resistance(val.temp_l, val.b_const, val.r_l, resistance);
 
-        //抵抗値の計算
-        if (current_mA != 0) {
-            float resistance = (voltage / current_mA) * 1000;
-            //printf("%.3f V  %.3f mA  %.3f mW  %.3f　Ω\n", voltage, current_mA, power_mW, resistance);
-            printf("%.3f,%.1f,%.3f,%.3f\n", voltage, current_mA, power_W, resistance);
-            vTaskDelay(pdMS_TO_TICKS(1000));
-            continue;
-        }
-
-
-        //printf("%.3f V  %.3f mA  %.3f mW  -　Ω\n", voltage, current_mA, power_mW);
 
         //csv用
-        printf("%.3f,%.1f,%.3f,-\n", voltage, current_mA, power_W);
+        printf("%.3f,%.1f,%.3f,-\n", voltage, resistance, temp);
 
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
@@ -118,6 +130,18 @@ void app_main(void) {
 }
 
 
-/*データ変換
- * ・取得した値のビットシフトは電流に対しては行わない->行う。0x01に入っているのも電圧のバイナリ。
- */
+//電圧から抵抗値
+float derive_resistance_from_voltage(float v_x, float v_cc, float r_connection) {
+    float r_t = v_x / (v_cc - v_x) * r_connection;
+    return r_t;
+}
+
+
+//抵抗値から温度
+float derive_temp_from_resistance(int temp_l, float b_const, float r_l, float r_th) {
+    //絶対温度への変換
+    float t0 = temp_l + ABSOLUTE_ZERO;
+
+    float t1 = b_const / (log(r_th / r_l) + b_const * (1.0 / t0));
+    return t1 - ABSOLUTE_ZERO;  //セルシウス度に戻す
+}

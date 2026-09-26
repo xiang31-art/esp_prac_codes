@@ -1,4 +1,4 @@
-//パネル発電量・サーミスタ温度計測
+//サーミスタ温度計測テスト　by INA219
 
 #include "driver/i2c_types.h"
 #include "freertos/FreeRTOS.h"
@@ -11,7 +11,6 @@
 #include "soc/gpio_num.h"
 #include <stdint.h>
 #include <math.h>
-#include <stdio.h>
 
 const char* TAG = "ESP15";
 const float B_CONST = 3420.5;
@@ -33,8 +32,10 @@ float derive_resistance_from_voltage(float v_x, float v_cc, float r_connection);
 float derive_temp_from_resistance(int temp_l, float b_const, float r_l, float r_th);
 
 void app_main(void) {
+    ESP_LOGI(TAG, "Hello1!");
+
     /*i2cバス初期設定*/
-    i2c_master_bus_config_t bus_conf_p = {
+    i2c_master_bus_config_t bus_conf = {
         .clk_source = I2C_CLK_SRC_DEFAULT,
         .i2c_port = -1,
         .scl_io_num = GPIO_NUM_22,
@@ -43,14 +44,8 @@ void app_main(void) {
         .flags.enable_internal_pullup = true,
     };
 
-    i2c_master_bus_config_t bus_conf_th = {
-        .clk_source = I2C_CLK_SRC_DEFAULT,
-        .i2c_port = -1,
-        .scl_io_num = GPIO_NUM_33,
-        .sda_io_num = GPIO_NUM_25,
-        .glitch_ignore_cnt = 7,
-        .flags.enable_internal_pullup = true,
-    };
+    ESP_LOGI(TAG, "Hello2!");
+
 
 
     //ハンドル作成・エラーチェック
@@ -58,15 +53,16 @@ void app_main(void) {
     i2c_master_bus_handle_t bus_handle_th;
 
     //ソーラーパネル用
-    esp_err_t ret_init_bus_handle_p = i2c_new_master_bus(&bus_conf_p, &bus_handle_p);
+    esp_err_t ret_init_bus_handle_p = i2c_new_master_bus(&bus_conf, &bus_handle_p);
     //サーミスタ用
-    esp_err_t ret_init_bus_handle_th = i2c_new_master_bus(&bus_conf_th, &bus_handle_th);
+    esp_err_t ret_init_bus_handle_th = i2c_new_master_bus(&bus_conf, &bus_handle_th);
 
     if (ret_init_bus_handle_p != ESP_OK || ret_init_bus_handle_th != ESP_OK) {
         ESP_LOGE(TAG, "I2C master bus_p initialize failed: %s , %s", esp_err_to_name(ret_init_bus_handle_p), esp_err_to_name(ret_init_bus_handle_th));
         return;
     }
 
+    ESP_LOGI(TAG, "Hello3!");
 
     //デバイス設定
     i2c_device_config_t dev_conf_p = {  //ソーラーパネル
@@ -85,6 +81,7 @@ void app_main(void) {
     i2c_master_dev_handle_t dev_handle_p;
     i2c_master_dev_handle_t dev_handle_th;
 
+    ESP_LOGI(TAG, "Hello4!");
 
 
     //ハンドルに操作兼付与
@@ -95,14 +92,19 @@ void app_main(void) {
         return;
     }
 
+    ESP_LOGI(TAG, "Hello5!");
+
+
 
     uint8_t measure_config_data[3] = {0x00, 0x39, 0x9F};
     const uint8_t register_shuntV = 0x01;
     const uint8_t register_busV = 0x02;
 
+    ESP_LOGI(TAG, "Hello6!");
 
     //測定の設定情報書き込み
     esp_err_t ret_config_p = i2c_master_transmit(dev_handle_p, measure_config_data, sizeof(measure_config_data), -1);
+    ESP_LOGI(TAG, "Hello7!");
     esp_err_t ret_config_th = i2c_master_transmit(dev_handle_th, measure_config_data, sizeof(measure_config_data), -1);
 
     if (ret_config_p != ESP_OK || ret_config_th != ESP_OK) {
@@ -110,6 +112,7 @@ void app_main(void) {
         return;
     }
 
+    ESP_LOGI(TAG, "Hello8!");
 
     //サーミスタの情報
     setting sett = {
@@ -122,6 +125,7 @@ void app_main(void) {
         .b_const = 3420.5
     };
 
+    ESP_LOGI(TAG, "Hello9");
 
     //ほとんどesp14_resistorと同じ
     printf("Voltage[V],Current[mA],Power[W],Resistance[Ω],Vth[V],Rt[Ω],Temp[℃]\n");
@@ -134,7 +138,6 @@ void app_main(void) {
         //読み込みエラーチェック
         if (ret_shuntV_p != ESP_OK || ret_busV_p != ESP_OK) {
             ESP_LOGE(TAG, "I2C read failed shuntV:%s busV:%s", esp_err_to_name(ret_shuntV_p), esp_err_to_name(ret_busV_p));
-            printf("\n\n");
             vTaskDelay(pdMS_TO_TICKS(1000));
             continue;
         }
@@ -177,6 +180,7 @@ void app_main(void) {
             continue;
         }
 
+
         //電圧の変換
         uint16_t busV_raw_conbine_th = (busV_data_th[0] << 8) | busV_data_th[1];
         uint16_t busV_raw_th = busV_raw_conbine_th >> 3;
@@ -190,9 +194,10 @@ void app_main(void) {
         /*ここまでサーミスタ*/
 
 
+
         //表示
         if (resistance_p != -1) { //抵抗値が計算されたとき
-            printf("%.3f,%.1f,%.3f,%.3f,", voltage_p, current_mA_p, power_W_p, resistance_p); //パネル
+            printf("%.3f,%.1f,%.3f,%.3f\n", voltage_p, current_mA_p, power_W_p, resistance_p); //パネル
             printf("%.3f,%.3f,%.3f\n", voltage_th, resistance_th, current_temp);    //サーミスタ
         }
         else {

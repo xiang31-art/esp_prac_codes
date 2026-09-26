@@ -1,0 +1,25 @@
+公式ドキュメントの分析
+
+
+P22
+P23,24 設定・測定・計算の例
+
+アドレス(hex)  |  内容
+0x00 | Configuration(設定)
+0x01 | Shunt(シャント電圧)
+0x02 | busV()
+0x03 | Power()
+0x04 | Current(電流)
+0x05 | Calibration(較正)
+
+Power,Currentはデフォルトで0。使用するにはCalibrationレジスタに何か書き込まないといけない
+
+
+P25
+P
+P
+P
+P
+P
+P
+P
